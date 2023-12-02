@@ -21,5 +21,21 @@
 
 body {
     font-family: 'Nunito Sans', sans-serif;
-    min-height: 100vh;
+    overflow: hidden;
 }
+
+.center {
+    min-height: 100vh;
+    text-align: center;
+}
+
+
+h1 {
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1.5;
+    margin-top: 20px;
+}
+
+
+
