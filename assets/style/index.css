@@ -63,15 +63,14 @@ input[type="text"] {
 }
 
 input.start {
-    width: 100px;
-    height: 50px;
+    width: 120px;
+    height: 60px;
     font-size: 26px;
     border-radius: 6px;
     margin-top: 40px;
     color: #fff;
-    background-color: #003298
+    background-color: #003298;
 }
-
 
 .random-words {
     font-size: 35px;
@@ -87,6 +86,22 @@ input.start {
 span .timer {
     font-size: 26px;
     color: #fff;
+}
+
+span.timer {
+    margin-left: 10px;
+}
+
+span.words-typed {
+    margin-left: 10px;
+    font-size: 24px;
+    color: #fff;
+}
+
+input.start:hover {
+    cursor: pointer;
+    background-color: #001f5d;
+    transition: ease-in-out;
 }
 
 /***    Animation I found online. Not mine!     ***/

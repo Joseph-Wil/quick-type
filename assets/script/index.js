@@ -11,9 +11,12 @@ const userInput = select('.user');
 const startButton = select('.start');
 const timer = select('.timer');
 const wordCount = select('.words-typed');
-const timeInGame = 99;
+const backgroundMusic = new Audio ('../audio/stranger-things.mp3');
+let typedWords = 0;
 let i = 0; // This is for titleAnimation function
 let currentIndex = 0;
+let timeInGame = 99;
+let countdownTimer;
 const words = [
     'dinosaur', 'love', 'pineapple', 'calendar', 'robot', 'building',
     'population', 'weather', 'bottle', 'history', 'dream', 'character', 'money',
@@ -35,7 +38,6 @@ const words = [
     'rebel', 'amber', 'jacket', 'article', 'paradox', 'social', 'resort', 'escape'
 ];
 
-
 // Functions 
 
 
@@ -51,13 +53,17 @@ function titleAnimation() {
 };
 
 function gameCountdown() {
+    countdownTimer = setInterval(() => {
+        timer.innerText = timeInGame;
+        timeInGame--;
 
-    const countdownTimer = setInterval(() => {
-        timer.innerText = timeInGame-- ;
-
+        if (timeInGame < 10) {
+            timer.style.color= '#d80000';
+        }
         if (timeInGame < 0) {
             clearInterval(countdownTimer);
             timer.innerText = 'Time is up!'
+            stopMusic();
         }
     }, 1000)    // Timer goes down every second (1000 milliseconds = 1 second)
 };
@@ -76,18 +82,49 @@ function displayNextWord() {
         currentIndex ++;
     } else {
         randomWords.textContent = 'No more words';
+        stopMusic();
     }
 }
 
 function userTypedInput() {
-    const userInput = userInput.value.toLowerCase();
-    const currentWord = wods[currentIndex - 1];
+    const userInputText = userInput.value.toLowerCase();
+    const currentWord = words[currentIndex - 1];
 
-    if (userInput === currentWord) {
+    if (userInputText === currentWord) {
         words.splice(currentIndex - 1, 1);
         displayNextWord();
+        playerScore();
     }
 }
+
+function playerScore() {
+    typedWords++;
+    wordCount.textContent = typedWords;
+}
+
+function resetGame() {
+    startButton.value = 'Restart';
+    clearInterval(countdownTimer);
+
+    shuffleArray(words);
+    currentIndex = 0;
+    displayNextWord();
+    userInput.focus();
+    typedWords = 0;
+    wordCount.textContent = 0;
+
+    timeInGame = 99;
+    gameCountdown();
+};
+
+function playMusic() {
+    backgroundMusic.play();
+}
+
+function stopMusic() {
+    backgroundMusic.stop();
+}
+
 
 // onEvent
 
@@ -95,12 +132,13 @@ onEvent('input', userInput, userTypedInput);
 
 onEvent('load', window, function() {
     titleAnimation();
-})
+});
 
 onEvent('click', startButton, function() {
     shuffleArray(words);
-    gameCountdown();
     currentIndex = 0;
     displayNextWord()
-
-})
+    userInput.focus();
+    playMusic();
+    resetGame();
+});
