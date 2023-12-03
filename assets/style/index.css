@@ -53,29 +53,28 @@ h3 {
 }
 
 input[type="text"] {
-    font-size: 24px;
+    font-size: 30px;
     width: 20rem;
-    height: 50px;
+    height: 60px;
     border-radius: 4px;
     background-color:#171A22;
     color: #fff;
     padding: 15px;
+    text-align: center;
 }
 
 input.start {
     width: 120px;
-    height: 80px;
-    font-size: 30px;
+    height: 60px;
+    font-size: 26px;
     border-radius: 6px;
     margin-top: 40px;
-    margin-bottom: 40px;
     color: #fff;
     background-color: #003298;
-    text-align: center;
 }
 
 .random-words {
-    font-size: 40px;
+    font-size: 35px;
     margin-bottom: 25px;
     color: #fff;
 }

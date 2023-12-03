@@ -12,6 +12,7 @@ const startButton = select('.start');
 const timer = select('.timer');
 const wordCount = select('.words-typed');
 const backgroundAudio = new Audio ('../assets/audio/stranger-things.mp3');
+const tenSecCountdown = new Audio ('../assets/audio/10-seconds.mp3');
 let typedWords = 0;
 let i = 0; // This is for titleAnimation function
 let currentIndex = 0;
@@ -57,13 +58,14 @@ function gameCountdown() {
         timer.innerText = timeInGame;
         timeInGame--;
 
-        if (timeInGame < 10) {
+        if (timeInGame < 12) {
             timer.style.color= '#d80000';
+            lastTenSeconds();
+            stopMusic();
         }
         if (timeInGame < 0) {
             clearInterval(countdownTimer);
             timer.innerText = 'Time is up!'
-            stopMusic();
         }
     }, 1000)    // Timer goes down every second (1000 milliseconds = 1 second)
 };
@@ -112,10 +114,17 @@ function resetGame() {
     userInput.focus();
     typedWords = 0;
     wordCount.textContent = 0;
+    backgroundAudio.pause();
+    backgroundAudio.currentTime = 0;
+    playMusic();
 
     timeInGame = 99;
     gameCountdown();
 };
+
+function lastTenSeconds() {
+    tenSecCountdown.play();
+}
 
 function playMusic() {
     backgroundAudio.play();
