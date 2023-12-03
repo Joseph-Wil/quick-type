@@ -5,12 +5,15 @@ import { Score } from "./score.js";
 
 // Variables 
 
+const gameTitle = select('.game-title');
 const randomWords = select('.random-words');
 const userInput = select('.user');
 const startButton = select('.start');
 const timer = select('.timer');
 const wordCount = select('.words-typed');
 const timeInGame = 99;
+let i = 0; // This is for titleAnimation function
+let currentIndex = 0;
 const words = [
     'dinosaur', 'love', 'pineapple', 'calendar', 'robot', 'building',
     'population', 'weather', 'bottle', 'history', 'dream', 'character', 'money',
@@ -35,21 +38,69 @@ const words = [
 
 // Functions 
 
+
+function titleAnimation() {
+    let speed = 80;
+    const titleName = 'Welcome to Type Master';
+
+    if (i < titleName.length) {
+        gameTitle.textContent += titleName.charAt(i);
+        i++;
+        setTimeout(titleAnimation, speed);
+    }
+};
+
 function gameCountdown() {
 
     const countdownTimer = setInterval(() => {
-        timer.textContent = timeInGame-- ;
+        timer.innerText = timeInGame-- ;
 
-        if (timeInGame === 0) {
+        if (timeInGame < 0) {
             clearInterval(countdownTimer);
-            timer.textContent = 'Time is up!'
+            timer.innerText = 'Time is up!'
         }
     }, 1000)    // Timer goes down every second (1000 milliseconds = 1 second)
+};
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
 
+function displayNextWord() {
+    if (currentIndex < words.length) {
+        randomWords.textContent = words[currentIndex];
+        userInput.value = '';
+        currentIndex ++;
+    } else {
+        randomWords.textContent = 'No more words';
+    }
+}
+
+function userTypedInput() {
+    const userInput = userInput.value.toLowerCase();
+    const currentWord = wods[currentIndex - 1];
+
+    if (userInput === currentWord) {
+        words.splice(currentIndex - 1, 1);
+        displayNextWord();
+    }
+}
 
 // onEvent
 
+onEvent('input', userInput, userTypedInput);
+
+onEvent('load', window, function() {
+    titleAnimation();
+})
+
 onEvent('click', startButton, function() {
+    shuffleArray(words);
     gameCountdown();
+    currentIndex = 0;
+    displayNextWord()
+
 })

@@ -1,10 +1,5 @@
 @charset "utf-8";
 
-:root {
-    --app-dark-bg: #171A22;
-}
-
-
 * {
     margin: 0;
     padding: 0;
@@ -21,21 +16,155 @@
 
 body {
     font-family: 'Nunito Sans', sans-serif;
+    background-color: var(--app-dark-bg);
     overflow: hidden;
-}
-
-.center {
+    position: relative;
+    background-image: url(../img/future.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     min-height: 100vh;
     text-align: center;
 }
 
-
 h1 {
-    font-size: 30px;
+    font-size: 60px;
     font-weight: 600;
     letter-spacing: 1.5;
-    margin-top: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color:#0051f4;
+}
+
+.tracker {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+h2 {
+    color: #fff;
+    font-size: 26px;
+}
+
+h3 {
+    color: #fff;
+    font-size: 24px;
+}
+
+input[type="text"] {
+    font-size: 24px;
+    width: 20rem;
+    height: 50px;
+    border-radius: 4px;
+    background-color:#171A22;
+    color: #fff;
+    padding: 15px;
+}
+
+input.start {
+    width: 100px;
+    height: 50px;
+    font-size: 26px;
+    border-radius: 6px;
+    margin-top: 40px;
+    color: #fff;
+    background-color: #003298
 }
 
 
+.random-words {
+    font-size: 35px;
+    margin-bottom: 25px;
+    color: #fff;
+}
 
+.word-generator {
+    height: 20rem;
+    padding: 20px;
+}
+
+span .timer {
+    font-size: 26px;
+    color: #fff;
+}
+
+/***    Animation I found online. Not mine!     ***/
+
+.hero {
+    height: 100vh;
+    overflow: hidden;
+}
+      
+.cube {
+    position: absolute;
+    top: 80vh;
+    left: 45vw;
+    width: 10px;
+    height: 10px;
+    border: solid 1px #003298;
+    transform-origin: top left;
+    transform: scale(0) rotate(0deg) translate(-50%, -50%);
+    -webkit-animation: cube 12s ease-in forwards infinite;
+    animation: cube 12s ease-in forwards infinite;
+}
+
+.cube:nth-child(2n) {
+    border-color: #0051f4;
+}
+
+.cube:nth-child(2) {
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+    left: 25vw;
+    top: 40vh;
+}
+
+.cube:nth-child(3) {
+    -webkit-animation-delay: 4s;
+    animation-delay: 4s;
+    left: 75vw;
+    top: 50vh;
+}
+
+.cube:nth-child(4) {
+    -webkit-animation-delay: 6s;
+    animation-delay: 6s;
+    left: 90vw;
+    top: 10vh;
+}
+    .cube:nth-child(5) {
+    -webkit-animation-delay: 8s;
+    animation-delay: 8s;
+    left: 10vw;
+    top: 85vh;
+}
+
+.cube:nth-child(6) {
+    -webkit-animation-delay: 10s;
+     animation-delay: 10s;
+    left: 50vw;
+    top: 10vh;
+}
+      
+@-webkit-keyframes cube {
+    from {
+        transform: scale(0) rotate(0deg) translate(-50%, -50%);
+        opacity: 1;
+    }
+    to {
+        transform: scale(20) rotate(960deg) translate(-50%, -50%);
+        opacity: 0;
+    }
+}
+      
+@keyframes cube {
+    from {
+        transform: scale(0) rotate(0deg) translate(-50%, -50%);
+        opacity: 1;
+    }
+    to {
+        transform: scale(20) rotate(960deg) translate(-50%, -50%);
+        opacity: 0;
+    }
+}
