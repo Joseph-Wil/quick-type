@@ -11,7 +11,7 @@ const userInput = select('.user');
 const startButton = select('.start');
 const timer = select('.timer');
 const wordCount = select('.words-typed');
-const backgroundMusic = new Audio ('../audio/stranger-things.mp3');
+const backgroundAudio = new Audio ('../assets/audio/stranger-things.mp3');
 let typedWords = 0;
 let i = 0; // This is for titleAnimation function
 let currentIndex = 0;
@@ -118,11 +118,12 @@ function resetGame() {
 };
 
 function playMusic() {
-    backgroundMusic.play();
+    backgroundAudio.play();
 }
 
 function stopMusic() {
-    backgroundMusic.stop();
+    backgroundAudio.pause();
+    backgroundAudio.currentTime = 0;
 }
 
 
