@@ -58,14 +58,13 @@ function gameCountdown() {
         timer.innerText = timeInGame;
         timeInGame--;
 
-        if (timeInGame < 12) {
+        if (timeInGame < 11) {
             timer.style.color= '#d80000';
-            lastTenSeconds();
-            stopMusic();
         }
         if (timeInGame < 0) {
             clearInterval(countdownTimer);
             timer.innerText = 'Time is up!'
+            stopMusic();
         }
     }, 1000)    // Timer goes down every second (1000 milliseconds = 1 second)
 };
@@ -122,10 +121,6 @@ function resetGame() {
     gameCountdown();
 };
 
-function lastTenSeconds() {
-    tenSecCountdown.play();
-}
-
 function playMusic() {
     backgroundAudio.play();
 }
@@ -134,7 +129,6 @@ function stopMusic() {
     backgroundAudio.pause();
     backgroundAudio.currentTime = 0;
 }
-
 
 // onEvent
 
