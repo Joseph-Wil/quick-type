@@ -13,6 +13,7 @@ const timer = select('.timer');
 const wordCount = select('.words-typed');
 const backgroundAudio = new Audio ('../assets/audio/stranger-things.mp3');
 const tenSecCountdown = new Audio ('../assets/audio/10-seconds.mp3');
+const dialog = select('dialog');
 let typedWords = 0;
 let i = 0; // This is for titleAnimation function
 let currentIndex = 0;
@@ -47,6 +48,7 @@ function hideGameName() {
 
 function enableInput() {
     userInput.removeAttribute('disabled');
+    userInput.style.cursor = 'auto';
     userInput.focus();
     userInput.innerText = '';
 }
