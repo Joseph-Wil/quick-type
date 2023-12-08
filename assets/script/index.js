@@ -41,6 +41,15 @@ const words = [
 
 // Functions 
 
+function hideGameName() {
+    gameTitle.style.display = 'none';
+};
+
+function enableInput() {
+    userInput.removeAttribute('disabled');
+    userInput.focus();
+    userInput.innerText = '';
+}
 
 function titleAnimation() {
     let speed = 80;
@@ -139,6 +148,8 @@ onEvent('load', window, function() {
 });
 
 onEvent('click', startButton, function() {
+    hideGameName();
+    enableInput();
     shuffleArray(words);
     currentIndex = 0;
     displayNextWord()

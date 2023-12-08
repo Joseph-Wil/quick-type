@@ -56,14 +56,24 @@ h1 {
     line-height: 4rem;
 }
 
+span.timer {
+    font-size: 26px;
+    color: #fff;
+    margin-left: 5px;
+    min-width: 80px;
+    display: inline-block;
+}
+
 h2 {
     color: #fff;
     font-size: 26px;
+    width: 50%;
 }
 
 h3 {
     color: #fff;
     font-size: 24px;
+    width: 50%;
 }
 
 input[type="text"] {
@@ -106,15 +116,6 @@ input.start {
     margin-top: 70px;
     margin-bottom: 50px;
     height: 9rem;
-}
-
-span .timer {
-    font-size: 26px;
-    color: #fff;
-}
-
-span.timer {
-    margin-left: 10px;
 }
 
 span.words-typed {
