@@ -1,7 +1,6 @@
 'use strict';
 
 import { onEvent, getElement, select, create } from "./utility.js";
-import { Score } from "./score.js";
 
 // Variables 
 
@@ -14,10 +13,11 @@ const wordCount = select('.words-typed');
 const backgroundAudio = new Audio ('../assets/audio/stranger-things.mp3');
 const tenSecCountdown = new Audio ('../assets/audio/10-seconds.mp3');
 const dialog = select('dialog');
+const scoreboardButton = select('.scoreboard');
 let typedWords = 0;
 let i = 0; // This is for titleAnimation function
 let currentIndex = 0;
-let timeInGame = 99;
+let timeInGame = 15;
 let countdownTimer;
 const words = [
     'dinosaur', 'love', 'pineapple', 'calendar', 'robot', 'building',
@@ -42,8 +42,17 @@ const words = [
 
 // Functions 
 
+function showLeaderboard() {
+    dialog.style.display = 'grid';
+}
+
+function showScoreboardButton() {
+    scoreboardButton.style.display = 'block';
+}
+
 function hideGameName() {
     gameTitle.style.display = 'none';
+    scoreboardButton.style.display = 'none';
 };
 
 function enableInput() {
@@ -52,6 +61,10 @@ function enableInput() {
     userInput.focus();
     userInput.innerText = '';
 }
+
+function disableInput() {
+    userInput.setAttribute('disabled', 'disabled');
+};
 
 function titleAnimation() {
     let speed = 80;
@@ -76,6 +89,8 @@ function gameCountdown() {
             clearInterval(countdownTimer);
             timer.innerText = 'Time is up!'
             stopMusic();
+            disableInput();
+            showScoreboardButton();
         }
     }, 1000)    // Timer goes down every second (1000 milliseconds = 1 second)
 };
@@ -94,6 +109,8 @@ function displayNextWord() {
         currentIndex ++;
     } else {
         randomWords.textContent = 'No more words';
+        showScoreboardButton();
+        disableInput();
         stopMusic();
     }
 }
@@ -126,9 +143,10 @@ function resetGame() {
     wordCount.textContent = 0;
     backgroundAudio.pause();
     backgroundAudio.currentTime = 0;
+    hideGameName();
     playMusic();
 
-    timeInGame = 99;
+    timeInGame = 15;
     gameCountdown();
 };
 
@@ -158,4 +176,8 @@ onEvent('click', startButton, function() {
     userInput.focus();
     playMusic();
     resetGame();
+});
+
+onEvent('click', scoreboardButton, function() {
+    showLeaderboard();
 });

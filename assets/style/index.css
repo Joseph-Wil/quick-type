@@ -52,6 +52,7 @@ h1 {
 .tracker {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     height: 4rem;
     line-height: 4rem;
 }
@@ -68,12 +69,24 @@ h2 {
     color: #fff;
     font-size: 26px;
     width: 50%;
+    overflow: hidden; 
 }
 
 h3 {
     color: #fff;
-    font-size: 24px;
+    font-size: 26px;
     width: 50%;
+    overflow: hidden;
+}
+
+input.scoreboard {
+    width: 13rem;
+    height: 3rem;
+    font-size: 1.4rem;
+    letter-spacing: 1.4px;
+    border-radius: 6px;
+    color: #0051f4;
+    background-color: #fff;
 }
 
 input[type="text"] {
@@ -100,7 +113,7 @@ input.start {
 }
 
 .random-words {
-    font-size: 6rem;
+    font-size: 6.5rem;
     line-height: 9rem;
     color: #0051f4;
     font-family: 'Major Mono Display', monospace;
@@ -124,7 +137,7 @@ span.words-typed {
     color: #fff;
 }
 
-input.start:hover {
+input.start:hover, .scoreboard:hover {
     cursor: pointer;
     background-color: #001f5d;
     transition: ease-in-out;
@@ -138,32 +151,35 @@ input[type="text"]:hover {
 /***    Dialog  ***/
 
 h4 {
-    font-size: 2rem;
-    color: #0051f4;
+    font-size: 2.5rem;
+    color: #001f5d;
     text-align: center;
 }
 
-.game-over {
-    font-size: 1.3rem;
+.rank {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    color: #000000;
 }
 
-.final-score, .accuracy, .date {
-    font-size: 1.3rem;
+.rank, .final-score, .date {
+    font-size: 1.4rem;
 }
 
 dialog {
-    display: grid;
+    display: none;
     margin: auto;
-    width: 18rem;
-    height: 18rem;
+    width: 25rem;
+    height: 30rem;
     text-align: left;
     padding: 20px;
     border-radius: 10px;
     border-style: none;
     box-shadow: 2px 2px 4px rgb(0 0 0 / 0.2);
     animation: 0.2s linear anim;
+    grid-template-rows: repeat(10, 1fr);
+    background-color: #f1f1f1;
 }
 
 @keyframes anim {
