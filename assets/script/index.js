@@ -14,6 +14,7 @@ const backgroundAudio = new Audio ('../assets/audio/stranger-things.mp3');
 const tenSecCountdown = new Audio ('../assets/audio/10-seconds.mp3');
 const dialog = select('dialog');
 const scoreboardButton = select('.scoreboard');
+const totalWords = 120;
 let typedWords = 0;
 let i = 0; // This is for titleAnimation function
 let currentIndex = 0;
@@ -42,6 +43,8 @@ const words = [
 
 // Functions 
 
+// Leaderboard functions 
+
 function showLeaderboard() {
     dialog.style.display = 'grid';
 }
@@ -49,6 +52,67 @@ function showLeaderboard() {
 function showScoreboardButton() {
     scoreboardButton.style.display = 'block';
 }
+
+function createUserStats(hits, totalWords) {
+    return {
+        hits: hits,
+        percentage: calcAccuracy(hits, totalWords),
+        date: new Date().toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric', 
+            year: 'numeric'
+        }),
+    };
+}
+
+function getLeaderboardFromStorage() {
+    const storedLeaderboard = localStorage.getItem('leaderboardArray');
+    return storedLeaderboard ? JSON.parse(storedLeaderboard) : [] ;
+}
+
+function updateLeaderboard(userStats) {
+    const leaderboardArray = getLeaderboardFromStorage();
+    leaderboardArray.push(userStats);
+    localStorage.setItem('leaderboardArray', JSON.stringify(leaderboardArray));
+}
+
+function displayLeaderboardStats() {
+    const leaderboardArray = getLeaderboardFromStorage();
+    const leaderboardContainer = select('.dialog');
+    const topNineOnly = Math.min(9, leaderboardArray.length);
+
+    leaderboardArray.sort((a, b) => b.hits - a.hits);
+    leaderboardContainer.innerHTML = '';
+    showLeaderboardTitle();
+
+    for (let index = 0; index < topNineOnly; index++) {
+        const userStats = leaderboardArray[index];
+        const leaderboardRank = document.createElement('p');
+        leaderboardRank.classList.add('rank');
+        leaderboardRank.innerHTML = ` <span class="rank-number">${index + 1}</span>
+                                      <span class="final-score">${userStats.hits} words</span>
+                                      <span class="date">${userStats.date}</span>`;
+        leaderboardContainer.appendChild(leaderboardRank);
+    };
+}
+
+function showLeaderboardTitle() {
+    const leaderboardTitle = create('h4');
+    const leaderboardContainer = select('.dialog');
+    leaderboardTitle.textContent = 'Leaderboards';
+    leaderboardContainer.appendChild(leaderboardTitle);
+}
+
+function noStatsRecorded() {
+    const leaderboardArray = getLeaderboardFromStorage();
+    const leaderboardContainer = select('.dialog')
+
+    if (leaderboardArray.length === 0) {
+        leaderboardContainer.innerHTML = 'No games played';
+    }
+}
+
+// Input functions 
 
 function hideGameName() {
     gameTitle.style.display = 'none';
@@ -65,6 +129,8 @@ function enableInput() {
 function disableInput() {
     userInput.setAttribute('disabled', 'disabled');
 };
+
+// In game animation and timer
 
 function titleAnimation() {
     let speed = 80;
@@ -91,9 +157,15 @@ function gameCountdown() {
             stopMusic();
             disableInput();
             showScoreboardButton();
+
+            const userStats = createUserStats(typedWords, words.length);
+            updateLeaderboard(userStats);
+            displayLeaderboardStats();
         }
     }, 1000)    // Timer goes down every second (1000 milliseconds = 1 second)
 };
+
+// Randomize  array of words 
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -115,6 +187,8 @@ function displayNextWord() {
     }
 }
 
+// User input and hits tracker
+
 function userTypedInput() {
     const userInputText = userInput.value.toLowerCase();
     const currentWord = words[currentIndex - 1];
@@ -130,6 +204,15 @@ function playerScore() {
     typedWords++;
     wordCount.textContent = typedWords;
 }
+
+function calcAccuracy(typedWords, totalWords) {
+    if (totalWords === 0 ) {
+        return 0;
+    }
+    return ((typedWords / totalWords) * 100).toFixed(1);
+}
+
+// Reset function
 
 function resetGame() {
     startButton.value = 'Restart';
@@ -150,6 +233,8 @@ function resetGame() {
     gameCountdown();
 };
 
+// Play, stop and revert music back to 0 
+
 function playMusic() {
     backgroundAudio.play();
 }
@@ -165,6 +250,8 @@ onEvent('input', userInput, userTypedInput);
 
 onEvent('load', window, function() {
     titleAnimation();
+    displayLeaderboardStats();
+
 });
 
 onEvent('click', startButton, function() {
@@ -179,5 +266,16 @@ onEvent('click', startButton, function() {
 });
 
 onEvent('click', scoreboardButton, function() {
+    noStatsRecorded();
     showLeaderboard();
+});
+
+onEvent('click', dialog, function(e) {
+    console.log('Dialog clicked');
+    const rect = this.getBoundingClientRect();
+
+    if (e.clientY < rect.top || e.clientY > rect.bottom ||
+        e.clientX < rect.left || e.clientX > rect.right) {
+            dialog.close(); 
+    }
 });

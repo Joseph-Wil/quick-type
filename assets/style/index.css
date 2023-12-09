@@ -151,7 +151,7 @@ input[type="text"]:hover {
 /***    Dialog  ***/
 
 h4 {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     color: #001f5d;
     text-align: center;
 }
@@ -164,22 +164,26 @@ h4 {
 }
 
 .rank, .final-score, .date {
-    font-size: 1.4rem;
+    font-size: 1rem;
 }
 
 dialog {
     display: none;
     margin: auto;
-    width: 25rem;
-    height: 30rem;
+    width: 20rem;
+    height: 25rem;
     text-align: left;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
     border-style: none;
     box-shadow: 2px 2px 4px rgb(0 0 0 / 0.2);
     animation: 0.2s linear anim;
     grid-template-rows: repeat(10, 1fr);
-    background-color: #f1f1f1;
+    background-color: #fff;
+}
+
+dialog::backdrop {
+    backdrop-filter: blur(5px);
 }
 
 @keyframes anim {
@@ -192,17 +196,10 @@ dialog {
     }
 }
 
-dialog::backdrop {
-    background-color: rgb(0 0 0 / 0.3);
-    backdrop-filter: blur(5px);
-}
-
-
 /***    Animation I found online. Not mine!     ***/
 
 .hero {
     height: 100vh;
-    overflow: hidden;
 }
       
 .cube {
