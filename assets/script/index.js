@@ -11,7 +11,7 @@ const startButton = select('.start');
 const timer = select('.timer');
 const wordCount = select('.words-typed');
 const backgroundAudio = new Audio ('../assets/audio/stranger-things.mp3');
-const dialog = select('dialog');
+const dialog = select('.dialog');
 const scoreboardButton = select('.scoreboard');
 const totalWords = 120;
 let typedWords = 0;
@@ -274,6 +274,7 @@ onEvent('click', dialog, function(e) {
 
     if (e.clientY < rect.top || e.clientY > rect.bottom ||
         e.clientX < rect.left || e.clientX > rect.right) {
-            dialog.close(); 
+            dialog.close();     
+            console.log('Dialog closed');
     }
 });
