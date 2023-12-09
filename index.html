@@ -16,24 +16,28 @@
     <body>
         <main>
             <div class="container">
+                <section class="title-container">
+                    <h1 class="game-title"></h1>
+                </section>
+                <div class="center">
+                <section class="word-generator">
                     <section class="tracker">
-                        <h2>Time Remaining:<span class="timer"></span></h2>
-                        <h3>Word Count:<span class="words-typed"></span></h3>
+                        <h2><i class="fa-regular fa-clock"></i><span class="timer"></span></h2>
+                        <input type="button" class="scoreboard" value="Leaderboard">
+                        <h3>Word Count:<span class="words-typed">0</span></h3>
                     </section>
-                    <div class="center">
-                    <section>
-                        <h1 class="game-title"></h1>
-                    </section>
-                    <section class="word-generator">
-                        <div>
-                            <p class="random-words"></p>
-                        </div>
-                        <div class="user-input">
-                            <input type="text" class="user" placeholder="Type the words here....">
-                        </div>
-                        <input type="button" class="start" value="Start">
-                    </section>
-                </div>
+                    <div class="word-container">
+                        <p class="random-words"></p>
+                    </div>
+                    <div class="user-input">
+                        <input type="text" class="user" placeholder="Type here...." disabled>
+                    </div>
+                    <input type="button" class="start" value="Start">
+                </section>
+                <dialog class="dialog">
+                        <h4>Leaderboard</h4>
+                        <p class="rank"><span class="final-score"></span><span class="date"></span></p>
+                </dialog>
             </div>
             <div class="hero"> 
                 <div class="cube"></div>

@@ -11,7 +11,6 @@ const startButton = select('.start');
 const timer = select('.timer');
 const wordCount = select('.words-typed');
 const backgroundAudio = new Audio ('../assets/audio/stranger-things.mp3');
-const tenSecCountdown = new Audio ('../assets/audio/10-seconds.mp3');
 const dialog = select('dialog');
 const scoreboardButton = select('.scoreboard');
 const totalWords = 120;
@@ -271,7 +270,6 @@ onEvent('click', scoreboardButton, function() {
 });
 
 onEvent('click', dialog, function(e) {
-    console.log('Dialog clicked');
     const rect = this.getBoundingClientRect();
 
     if (e.clientY < rect.top || e.clientY > rect.bottom ||
