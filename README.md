@@ -2,8 +2,7 @@
 
 This is a simple typing game with background audio that keeps track of how many words you type correctly in a time span of 99 seconds. 
 
-Click [here](https://Joseph-Wil.github.io/type-master/) to demo.
-
+Click [here](https://Joseph-Wil.github.io/quick-type/) to play.
 
 These are the languages I used to create this
 <br>
